@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Proof AI — Blueprint for Upskilling in AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f0000;
+      --bg-warm:   #140002;
+      --text:      #f5e8e2;
+      --muted:     #c49080;
+      --accent:    #d4836a;
+      --line:      rgba(245,232,226,0.10);
+      --line-warm: rgba(212,131,106,0.22);
+      --f-display: 'Cormorant Garamond', Georgia, serif;
+      --f-body:    'Jost', sans-serif;
+      --trans:     0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--f-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      cursor: default;
+    }
+
+    /* Grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      pointer-events: none;
+      z-index: 9000;
+      opacity: 0.4;
+    }
+
+    /* ─── Progress bar ───────────────────────────────────────────── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0;
+      height: 1px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--text));
+      z-index: 8000;
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ─── Slides ─────────────────────────────────────────────────── */
+    .slide {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 6vmin 8vw;
+      background: var(--bg);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(50px);
+      transition: opacity var(--trans), transform var(--trans);
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-50px);
+      pointer-events: none;
+    }
+
+    /* ─── Slide inner animation ──────────────────────────────────── */
+    .slide .anim {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .slide.active .anim { opacity: 1; transform: translateY(0); }
+
+    .d1 { transition-delay: 0.05s; }
+    .d2 { transition-delay: 0.15s; }
+    .d3 { transition-delay: 0.25s; }
+    .d4 { transition-delay: 0.35s; }
+    .d5 { transition-delay: 0.45s; }
+    .d6 { transition-delay: 0.55s; }
+    .d7 { transition-delay: 0.65s; }
+    .d8 { transition-delay: 0.75s; }
+    .d9 { transition-delay: 0.85s; }
+
+    /* ─── Navigation ─────────────────────────────────────────────── */
+    #nav {
+      position: fixed; bottom: 2.2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; align-items: center; gap: 1.8rem;
+      z-index: 7000;
+    }
+
+    .nav-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted);
+      font-family: var(--f-display);
+      font-size: 1.4rem; font-weight: 300;
+      line-height: 1;
+      padding: 0.4rem 0.6rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .nav-btn:hover { color: var(--accent); }
+    .nav-btn:disabled { opacity: 0.2; cursor: default; }
+    .nav-btn:disabled:hover { color: var(--muted); transform: none; }
+    #prev-btn:hover { transform: translateX(-3px); }
+    #next-btn:hover { transform: translateX(3px); }
+
+    #slide-counter {
+      font-family: var(--f-body);
+      font-size: 0.65rem; font-weight: 300;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      min-width: 4rem; text-align: center;
+    }
+
+    /* Keyboard hint */
+    #key-hint {
+      position: fixed; bottom: 2.2rem; right: 2.5rem;
+      font-size: 0.55rem; font-weight: 300;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(196,144,128,0.6);
+      z-index: 7000;
+    }
+
+    /* ─── SLIDE 1 — HERO ─────────────────────────────────────────── */
+    #slide-1 {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.13;
+      mix-blend-mode: luminosity;
+      filter: saturate(0.4);
+    }
+
+    #slide-1 > *:not(.hero-bg) { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.2rem;
+    }
+
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(3.2rem, 8vw, 9rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .hero-title em { font-style: italic; color: var(--accent); }
+
+    /* ─── TWO-COLUMN PILLAR LAYOUT ───────────────────────────────── */
+    .pillar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: start;
+      width: 100%;
+      max-width: 1300px;
+    }
+
+    @media (max-width: 768px) { .pillar { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .pillar-left { position: relative; }
+
+    .pillar-number {
+      font-family: var(--f-display);
+      font-size: clamp(7rem, 18vw, 16rem);
+      font-weight: 300;
+      line-height: 0.85;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(245,232,226,0.07);
+      position: absolute;
+      top: -1.5rem; left: -1rem;
+      pointer-events: none; user-select: none;
+    }
+
+    .pillar-heading {
+      font-family: var(--f-display);
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .pillar-heading em { font-style: italic; color: var(--accent); }
+
+    .pillar-desc {
+      font-size: clamp(0.8rem, 1.2vw, 0.92rem);
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 360px;
+      line-height: 1.75;
+      position: relative;
+    }
+
+    .section-label {
+      font-size: 0.6rem; font-weight: 300;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      display: block;
+      position: relative;
+    }
+
+    .pillar-right { padding-top: 0.5rem; }
+
+    .tools-label {
+      font-size: 0.6rem; font-weight: 300; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.2rem; display: block;
+    }
+
+    .tool-list { list-style: none; }
+
+    .tool-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .tool-item:first-child { border-top: 1px solid var(--line); }
+
+    .tool-name {
+      font-family: var(--f-display);
+      font-size: clamp(1rem, 1.8vw, 1.35rem);
+      font-weight: 300;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    a.tool-name {
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a.tool-name:hover { color: var(--accent); }
+
+    .tool-desc {
+      font-size: 0.68rem; font-weight: 300;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── AGENT SKILLS — Resources ───────────────────────────────── */
+    .resource-list { list-style: none; margin-top: 0.5rem; }
+    .resource-list li { padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+    .resource-list li:first-child { border-top: 1px solid var(--line); }
+
+    .resource-list a {
+      font-size: 0.82rem; font-weight: 300;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .resource-list a:hover { color: var(--accent); }
+    .resource-list a::before { content: '↗'; font-size: 0.7rem; color: var(--accent); }
+
+    /* ─── SLIDE 3 — LEARNING RESOURCES ─────────────────────────── */
+    #slide-3 .slide-inner { width: 100%; max-width: 1200px; }
+
+    .lr-header { margin-bottom: 2rem; }
+
+    .lr-title {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1;
+      color: var(--text); letter-spacing: -0.01em;
+    }
+
+    .lr-body {
+      display: grid;
+      grid-template-columns: 1fr 2.5fr;
+      gap: 4vw;
+      align-items: start;
+    }
+
+    .lr-section-label {
+      font-size: 0.72rem; font-weight: 300;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); display: block;
+      margin-bottom: 0.7rem;
+    }
+
+    .lr-featured-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; color: var(--text);
+      font-family: var(--f-display);
+      font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 300;
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transition: color 0.3s ease;
+    }
+    .lr-featured-link:hover { color: var(--accent); }
+    .lr-featured-link::before { content: '↗'; font-size: 0.7rem; color: var(--accent); }
+
+    .channel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--line);
+    }
+
+    .channel-link {
+      display: flex; align-items: baseline; gap: 0.5rem;
+      padding: 0.42rem 0.5rem 0.42rem 0;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--muted);
+      font-family: var(--f-display);
+      font-size: clamp(0.78rem, 1.1vw, 0.92rem); font-weight: 300;
+      transition: color 0.3s ease;
+    }
+    .channel-link:hover { color: var(--accent); }
+    .channel-link::before { content: '↗'; font-size: 0.6rem; color: var(--accent); opacity: 0.5; flex-shrink: 0; }
+
+    /* ─── SLIDE 6 — 3 BUCKET CHALLENGE ──────────────────────────── */
+    #slide-6 { justify-content: center; }
+
+    #slide-6 .slide-inner {
+      width: 100%;
+      max-width: 1300px;
+    }
+
+    .buckets-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2.5rem;
+    }
+
+    .buckets-title {
+      font-family: var(--f-display);
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 300; font-style: italic;
+      letter-spacing: -0.02em; color: var(--text);
+      line-height: 1;
+    }
+
+    .buckets-sub {
+      font-size: 0.6rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    .buckets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--line);
+    }
+
+    .bucket { padding: 1.6rem 1.5rem 2rem; position: relative; }
+    .bucket:not(:first-child) { border-left: 1px solid var(--line); }
+
+    @media (max-width: 900px) {
+      .buckets-grid { grid-template-columns: 1fr; }
+      .bucket:not(:first-child) { border-top: 1px solid var(--line); border-left: none; }
+    }
+
+    /* Examples label */
+    .bucket-examples {
+      display: block;
+      font-size: 0.58rem; font-weight: 300;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .bucket-number {
+      font-family: var(--f-display); font-size: 0.75rem;
+      font-weight: 300; color: var(--accent);
+      letter-spacing: 0.2em; display: block; margin-bottom: 0.9rem;
+    }
+
+    .bucket-title {
+      font-family: var(--f-display);
+      font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+      font-weight: 400; line-height: 1.25;
+      color: var(--text); margin-bottom: 1.2rem;
+      min-height: 2.8em;
+    }
+
+    .bucket:nth-child(2) .bucket-title { color: var(--text); }
+    .bucket:nth-child(3) .bucket-items li { font-style: italic; }
+
+    /* Tool subcategory labels */
+    .tool-subcat {
+      font-size: 0.58rem; font-weight: 300;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--accent); opacity: 0.75;
+      display: block;
+      margin-top: 2.2rem;
+      padding: 1rem 0 0.4rem;
+      border-top: 1px solid var(--line);
+    }
+    .tool-list li:first-child .tool-subcat { border-top: none; margin-top: 0; padding-top: 0; }
+
+    /* Skill tier labels (slide 3) */
+    .tier-label {
+      font-size: 0.58rem; font-weight: 300;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-top: 2.2rem;
+      padding: 1rem 0 0.4rem;
+      border-top: 1px solid var(--line);
+    }
+    .tool-list li:first-child .tier-label { border-top: none; margin-top: 0; padding-top: 0; }
+
+    /* Bucket intro paragraph */
+    .buckets-intro {
+      font-size: clamp(0.75rem, 1.1vw, 0.88rem);
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 780px;
+      margin-bottom: 2rem;
+    }
+    .buckets-intro strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .bucket-items { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .bucket-items li {
+      font-size: 0.76rem; font-weight: 300;
+      color: var(--muted); padding-left: 1rem;
+      position: relative; line-height: 1.45;
+    }
+    .bucket-items li::before { content: '—'; position: absolute; left: 0; color: var(--line-warm); }
+
+    /* ─── SLIDE 7 — TRENDS IN MOTION ────────────────────────────── */
+    #slide-7 .slide-inner {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .trends-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    .trends-title {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300; line-height: 1; color: var(--text);
+    }
+
+    .trends-question {
+      font-size: 0.65rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: right; line-height: 1.6;
+    }
+
+    .trend-row {
+      display: flex; align-items: baseline; gap: 2rem;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid var(--line);
+      position: relative; overflow: hidden;
+    }
+    .trend-row:first-of-type { border-top: 1px solid var(--line); }
+
+    .trend-row::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .trend-row:hover::after { width: 100%; }
+
+    .trend-num {
+      font-family: var(--f-display); font-size: 0.8rem;
+      font-weight: 300; color: var(--accent);
+      letter-spacing: 0.1em; min-width: 2rem; opacity: 0.7;
+    }
+
+    .trend-name {
+      font-family: var(--f-display);
+      font-size: clamp(1.3rem, 3vw, 2.2rem);
+      font-weight: 300; color: var(--text);
+      letter-spacing: -0.01em;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .trend-name:hover, .trend-row:hover .trend-name { color: var(--accent); }
+
+    /* ─── Leaf decoration ────────────────────────────────────────── */
+    .leaf-deco {
+      position: absolute;
+      pointer-events: none; user-select: none; overflow: hidden;
+    }
+    .leaf-deco img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.07;
+      mix-blend-mode: luminosity;
+      filter: saturate(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <!-- ── SLIDE 1 — HERO ──────────────────────────────────────────── -->
+  <section class="slide active" id="slide-1">
+    <div class="hero-bg">
+      <img src="img3.jpeg" alt="" aria-hidden="true" />
+    </div>
+    <p class="hero-eyebrow anim d1">A Blueprint for Upskilling</p>
+    <h1 class="hero-title anim d2">Future <em>Proof</em> AI</h1>
+    <p class="anim d3" style="font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:200;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted);margin-top:1.4rem;">A 3 Pillar Approach</p>
+  </section>
+
+  <!-- ── SLIDE 2 — LEARNING & RESEARCH ──────────────────────────── -->
+  <section class="slide" id="slide-2">
+    <div class="leaf-deco" style="right:-6rem;bottom:-3rem;width:380px;height:380px;">
+      <img src="img3.jpeg" alt="" aria-hidden="true" />
+    </div>
+    <div class="pillar">
+      <div class="pillar-left">
+        <div class="pillar-number anim d1">01</div>
+        <span class="section-label anim d2">Pillar One</span>
+        <h2 class="pillar-heading anim d3">Learning &amp;<br /><em>Research</em></h2>
+        <p class="pillar-desc anim d4">Curating, organizing, and managing content through a deliberate learning system.</p>
+      </div>
+      <div class="pillar-right">
+        <ul class="tool-list anim d3">
+          <li><span class="tool-subcat">News &amp; Discovery</span></li>
+          <li class="tool-item anim d4">
+            <a class="tool-name" href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
+            <span class="tool-desc">Channels &amp; Podcasts</span>
+          </li>
+          <li class="tool-item anim d5">
+            <a class="tool-name" href="https://x.com" target="_blank" rel="noopener">X.com</a>
+            <span class="tool-desc">Best AI newsfeed</span>
+          </li>
+          <li><span class="tool-subcat">Organize &amp; Curate</span></li>
+          <li class="tool-item anim d6">
+            <a class="tool-name" href="https://mymind.com" target="_blank" rel="noopener">MyMind</a>
+            <span class="tool-desc">Bookmarking &amp; Capturing</span>
+          </li>
+          <li class="tool-item anim d7">
+            <a class="tool-name" href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a>
+            <span class="tool-desc">Learning System</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 3 — LEARNING RESOURCES ────────────────────────────── -->
+  <section class="slide" id="slide-3">
+    <div class="slide-inner">
+      <div class="lr-header">
+        <span class="section-label anim d1">Pillar One</span>
+        <h2 class="lr-title anim d2">Learning Resources</h2>
+      </div>
+      <div class="lr-body">
+
+        <!-- X.com -->
+        <div class="anim d3">
+          <span class="lr-section-label">X.com</span>
+          <div class="channel-grid" style="grid-template-columns: 1fr;">
+            <a class="channel-link" href="https://x.com/i/lists/1697976264148111633" target="_blank" rel="noopener">AI Tech Watchlist</a>
+          </div>
+        </div>
+
+        <!-- YouTube -->
+        <div class="anim d4">
+          <span class="lr-section-label">YouTube Channels</span>
+          <div class="channel-grid">
+            <a class="channel-link" href="https://www.youtube.com/@aiadvantage" target="_blank" rel="noopener">AI Advantage (The)</a>
+            <a class="channel-link" href="https://www.youtube.com/@AIDailyBrief" target="_blank" rel="noopener">AI Daily Brief (The)</a>
+            <a class="channel-link" href="https://www.youtube.com/@aiDotEngineer" target="_blank" rel="noopener">AI Engineer</a>
+            <a class="channel-link" href="https://www.youtube.com/@AIJasonZ" target="_blank" rel="noopener">AI Jason</a>
+            <a class="channel-link" href="https://www.youtube.com/@NateBJones" target="_blank" rel="noopener">AI News &amp; Strategy Daily</a>
+            <a class="channel-link" href="https://www.youtube.com/channel/UCdHpbfqjELZmhqY3k0ELGcQ" target="_blank" rel="noopener">Artificial Intelligence Show (The)</a>
+            <a class="channel-link" href="https://www.youtube.com/@cognitiverevolutionpodcast" target="_blank" rel="noopener">Cognitive Revolution</a>
+            <a class="channel-link" href="https://www.youtube.com/@CollaborationSimplified" target="_blank" rel="noopener">Collaboration Simplified</a>
+            <a class="channel-link" href="https://www.youtube.com/c/DwarkeshPatel" target="_blank" rel="noopener">Dwarkesh Podcast</a>
+            <a class="channel-link" href="https://www.youtube.com/@dylandavisAI" target="_blank" rel="noopener">Dylan Davis</a>
+            <a class="channel-link" href="https://www.youtube.com/@EverydayAI" target="_blank" rel="noopener">Everyday AI</a>
+            <a class="channel-link" href="https://www.youtube.com/@futurepedia_io" target="_blank" rel="noopener">Futurepedia</a>
+            <a class="channel-link" href="https://www.youtube.com/@googledeepmind" target="_blank" rel="noopener">Google DeepMind</a>
+            <a class="channel-link" href="https://www.youtube.com/@MATGpod" target="_blank" rel="noopener">Marketing Against the Grain</a>
+            <a class="channel-link" href="https://www.youtube.com/@mreflow" target="_blank" rel="noopener">Matt Wolfe</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 4 — BUILDING ──────────────────────────────────────── -->
+  <section class="slide" id="slide-4">
+    <div class="pillar">
+      <div class="pillar-left">
+        <div class="pillar-number anim d1">02</div>
+        <span class="section-label anim d2">Pillar Two</span>
+        <h2 class="pillar-heading anim d3"><em>Building</em></h2>
+        <p class="pillar-desc anim d4">The new renaissance of vibe coding and coding agents for building software.</p>
+      </div>
+      <div class="pillar-right">
+        <ul class="tool-list anim d3">
+          <li><span class="tier-label">Beginner</span></li>
+          <li class="tool-item anim d4">
+            <a class="tool-name" href="https://aistudio.google.com/" target="_blank" rel="noopener">AI Studio</a>
+          </li>
+          <li><span class="tier-label">Intermediate</span></li>
+          <li class="tool-item anim d5">
+            <a class="tool-name" href="https://replit.com" target="_blank" rel="noopener">Replit</a>
+          </li>
+          <li class="tool-item anim d6">
+            <a class="tool-name" href="https://lovable.dev" target="_blank" rel="noopener">Loveable</a>
+          </li>
+          <li><span class="tier-label">Advanced</span></li>
+          <li class="tool-item anim d7">
+            <a class="tool-name" href="https://cursor.com" target="_blank" rel="noopener">Cursor</a>
+          </li>
+          <li class="tool-item anim d8">
+            <a class="tool-name" href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 5 — AGENT SKILLS ──────────────────────────────────── -->
+  <section class="slide" id="slide-5">
+    <div class="pillar">
+      <div class="pillar-left">
+        <div class="pillar-number anim d1">03</div>
+        <span class="section-label anim d2">Pillar Three</span>
+        <h2 class="pillar-heading anim d3">Agent<br /><em>Skills</em></h2>
+        <p class="pillar-desc anim d4">A new standard on teaching Agents skills.</p>
+      </div>
+      <div class="pillar-right">
+        <span class="tools-label anim d3">Resources</span>
+        <ul class="resource-list anim d4">
+          <li><a href="https://agentskills.io/home" target="_blank" rel="noopener">agentskills.io</a></li>
+          <li><a href="https://claude.com/blog/skills" target="_blank" rel="noopener">claude.com/blog/skills</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 6 — 3 BUCKET CHALLENGE ───────────────────────────── -->
+  <section class="slide" id="slide-6">
+    <div class="leaf-deco" style="right:-5rem;top:2rem;width:320px;height:320px;opacity:0.6;">
+      <img src="img3.jpeg" alt="" aria-hidden="true" />
+    </div>
+    <div class="slide-inner">
+      <div class="buckets-header">
+        <h2 class="buckets-title anim d1">3 Bucket Challenge</h2>
+        <span class="buckets-sub anim d2">A framework for your role in an AI world</span>
+      </div>
+      <p class="buckets-intro anim d3">To complete the 3 Bucket Challenge, divide your workload as follows:<br /><br />
+        <strong>Bucket 1:</strong> Routine tasks that are roughly 80% automatable.<br />
+        <strong>Bucket 2:</strong> High-level work involving strategy, taste, and decision-making.<br />
+        <strong>Bucket 3:</strong> Personal work that only you can do, fueled by your unique background and character.
+      </p>
+      <div class="buckets-grid">
+        <div class="bucket anim d3">
+          <span class="bucket-number">01 —</span>
+          <h3 class="bucket-title">Tasks AI Can Do 80% as Well</h3>
+          <span class="bucket-examples">Examples</span>
+          <ul class="bucket-items">
+            <li>Basic research and info gathering</li>
+            <li>Creating outlines from notes</li>
+            <li>Creating action items from meetings</li>
+            <li>Drafting routine emails</li>
+          </ul>
+        </div>
+        <div class="bucket anim d5">
+          <span class="bucket-number">02 —</span>
+          <h3 class="bucket-title">Taste, Judgement &amp; Strategic Vision</h3>
+          <span class="bucket-examples">Examples</span>
+          <ul class="bucket-items">
+            <li>Curating info for specific audiences</li>
+            <li>Deciding which projects to prioritize and why</li>
+            <li>Knowing when 'good enough' is sufficient</li>
+            <li>Identifying which emerging trends matter</li>
+          </ul>
+        </div>
+        <div class="bucket anim d7">
+          <span class="bucket-number">03 —</span>
+          <h3 class="bucket-title">Personality or Lived Experience</h3>
+          <span class="bucket-examples">Examples</span>
+          <ul class="bucket-items">
+            <li>Building trust through authenticity</li>
+            <li>The questions you ask that others don't think to ask</li>
+            <li>Sharing personal anecdotes</li>
+            <li>Your particular approach to conflict resolution</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 7 — TRENDS IN MOTION ─────────────────────────────── -->
+  <section class="slide" id="slide-7">
+    <div class="slide-inner">
+      <div class="trends-header">
+        <h2 class="trends-title anim d1">Trends<br />in Motion</h2>
+        <p class="trends-question anim d2">What is this<br />making possible?</p>
+      </div>
+      <div class="trend-row anim d3"><span class="trend-num">01</span><a class="trend-name" href="https://en.wikipedia.org/wiki/Model_Context_Protocol" target="_blank" rel="noopener">MCP — Model Context Protocol</a></div>
+      <div class="trend-row anim d4"><span class="trend-num">02</span><a class="trend-name" href="https://en.wikipedia.org/wiki/Multi-agent_system" target="_blank" rel="noopener">Agent Orchestration</a></div>
+      <div class="trend-row anim d5"><span class="trend-num">03</span><a class="trend-name" href="https://en.wikipedia.org/wiki/Vibe_coding" target="_blank" rel="noopener">Vibe Working Agents</a></div>
+      <div class="trend-row anim d6"><span class="trend-num">04</span><a class="trend-name" href="https://en.wikipedia.org/wiki/OpenClaw" target="_blank" rel="noopener">The OpenClaw Moment</a></div>
+      <div class="trend-row anim d7"><span class="trend-num">05</span><a class="trend-name" href="https://en.wikipedia.org/wiki/Voice_user_interface" target="_blank" rel="noopener">Using Voice for Prompting</a></div>
+    </div>
+  </section>
+
+  <!-- ── NAVIGATION ───────────────────────────────────────────────── -->
+  <nav id="nav">
+    <button id="prev-btn" class="nav-btn" disabled aria-label="Previous slide">←</button>
+    <span id="slide-counter">01 / 07</span>
+    <button id="next-btn" class="nav-btn" aria-label="Next slide">→</button>
+  </nav>
+
+  <p id="key-hint">← → keys</p>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const total  = slides.length;
+    let   current = 0;
+    let   animating = false;
+
+    const bar     = document.getElementById('progress-bar');
+    const counter = document.getElementById('slide-counter');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function goTo(index) {
+      if (animating || index === current || index < 0 || index >= total) return;
+      animating = true;
+
+      const from = slides[current];
+      const to   = slides[index];
+
+      from.classList.add('exit');
+      from.classList.remove('active');
+
+      to.classList.remove('exit');
+      // Force reflow so transition fires correctly
+      void to.offsetWidth;
+      to.classList.add('active');
+
+      current = index;
+      updateUI();
+
+      setTimeout(() => {
+        from.classList.remove('exit');
+        animating = false;
+      }, 700);
+    }
+
+    function updateUI() {
+      counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === total - 1;
+      bar.style.width  = `${((current) / (total - 1)) * 100}%`;
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+        e.preventDefault(); goTo(current + 1);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault(); goTo(current - 1);
+      }
+    });
+
+    // Click right/left halves to navigate (excluding interactive elements)
+    document.addEventListener('click', e => {
+      if (e.target.closest('a, button, nav')) return;
+      const mid = window.innerWidth / 2;
+      goTo(e.clientX >= mid ? current + 1 : current - 1);
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const dx = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 50) goTo(dx > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    updateUI();
+  </script>
+</body>
+</html>
