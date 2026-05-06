@@ -588,19 +588,152 @@
       letter-spacing: 0.12em;
       color: var(--muted);
     }
+
+    /* ─── Slide 9 (slide-2) — framework descriptor text +20% ─── */
+    #slide-2 .lead-desc { font-size: clamp(0.82rem, 1.14vw, 0.96rem); }
   </style>
 </head>
 <body>
 
   <div id="progress-bar"></div>
 
+  <!-- ── NEW SLIDE 1 — FUTURE-PROOF TITLE ──────────────────────── -->
+  <section class="slide active" id="slide-fp-1">
+    <div style="position:absolute;inset:0;z-index:0;">
+      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2560&auto=format&fit=crop" alt="" aria-hidden="true"
+           style="width:100%;height:100%;object-fit:cover;opacity:0.09;mix-blend-mode:luminosity;filter:saturate(0.3);" />
+    </div>
+    <div style="position:relative;z-index:1;text-align:center;">
+      <p class="hero-eyebrow anim d1">A Presentation</p>
+      <h1 class="anim d2" style="font-family:var(--f-display);font-size:clamp(2.8rem,7vw,7.5rem);font-weight:300;line-height:1.0;letter-spacing:-0.02em;color:var(--text);max-width:900px;">
+        How to <em style="font-style:italic;color:var(--accent);">Future-Proof</em><br />Your Career
+      </h1>
+      <p class="anim d3" style="font-size:clamp(0.65rem,1vw,0.8rem);font-weight:200;letter-spacing:0.35em;text-transform:uppercase;color:var(--muted);margin-top:1.8rem;">In The Age Of AI</p>
+    </div>
+  </section>
+
+  <!-- ── NEW SLIDE 2 — WSJ QUOTE ────────────────────────────────── -->
+  <section class="slide" id="slide-fp-2">
+    <div style="position:absolute;inset:0;z-index:0;">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop" alt="" aria-hidden="true"
+           style="width:100%;height:100%;object-fit:cover;opacity:0.07;mix-blend-mode:luminosity;filter:saturate(0.3);" />
+    </div>
+    <div style="position:relative;z-index:1;text-align:center;max-width:820px;">
+      <div class="anim d1" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:0 auto 2.8rem;"></div>
+      <blockquote class="anim d2" style="font-family:var(--f-display);font-size:clamp(1.5rem,3.2vw,3rem);font-weight:300;line-height:1.3;letter-spacing:-0.01em;color:var(--text);font-style:italic;">
+        "Virtually all tasks involving what might informally be described as 'doing stuff with a keyboard' seem destined for automation."
+      </blockquote>
+      <p class="anim d3" style="margin-top:2.5rem;font-size:0.62rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);">Wall Street Journal</p>
+      <div class="anim d4" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:2.5rem auto 0;"></div>
+    </div>
+  </section>
+
+  <!-- ── NEW SLIDE 3 — SULEYMAN QUOTE ──────────────────────────── -->
+  <section class="slide" id="slide-fp-3">
+    <div style="position:absolute;inset:0;z-index:0;">
+      <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2560&auto=format&fit=crop" alt="" aria-hidden="true"
+           style="width:100%;height:100%;object-fit:cover;opacity:0.07;mix-blend-mode:luminosity;filter:saturate(0.3);" />
+    </div>
+    <div style="position:relative;z-index:1;text-align:center;max-width:820px;">
+      <div class="anim d1" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:0 auto 2.8rem;"></div>
+      <blockquote class="anim d2" style="font-family:var(--f-display);font-size:clamp(1.5rem,3.2vw,3rem);font-weight:300;line-height:1.3;letter-spacing:-0.01em;color:var(--text);font-style:italic;">
+        "AI will automate 'most, if not all' white-collar tasks within 18 months."
+      </blockquote>
+      <p class="anim d3" style="margin-top:2.5rem;font-size:0.62rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);">Mustafa Suleyman</p>
+      <p class="anim d4" style="margin-top:0.5rem;font-size:0.58rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);">Co-founder of DeepMind &amp; CEO of Microsoft AI</p>
+      <div class="anim d5" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:2.5rem auto 0;"></div>
+    </div>
+  </section>
+
+  <!-- ── NEW SLIDE 4 — JUDGMENT VALUE CHART ────────────────────── -->
+  <section class="slide" id="slide-fp-4" style="padding:3vmin;">
+    <img src="judgement-value.png" alt="The Automation Paradox: Commoditizing execution amplifies the value of judgment"
+         class="anim d1"
+         style="position:relative;z-index:1;max-height:84vh;max-width:88vw;width:auto;height:auto;object-fit:contain;display:block;border-radius:4px;" />
+  </section>
+
+  <!-- ── NEW SLIDE 5 — JUDGMENT ECONOMY TABLE ──────────────────── -->
+  <section class="slide" id="slide-fp-5">
+    <div style="position:relative;z-index:1;width:100%;max-width:900px;zoom:1.25;">
+
+      <!-- Header row -->
+      <div class="anim d1" style="display:grid;grid-template-columns:clamp(130px,18vw,200px) 1fr 1fr;">
+        <div></div>
+        <div style="padding:0.9rem 2rem 0.9rem 1.5rem;font-family:var(--f-body);font-size:clamp(0.74rem,1.08vw,0.88rem);font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);">The Production Economy</div>
+        <div style="padding:0.9rem 2rem 0.9rem 1.5rem;font-family:var(--f-body);font-size:clamp(0.74rem,1.08vw,0.88rem);font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);border-bottom:2px solid var(--accent);border-left:1px solid var(--line);">The Judgment Economy</div>
+      </div>
+
+      <!-- Row 1 — Metric of Success -->
+      <div class="anim d2" style="display:grid;grid-template-columns:clamp(130px,18vw,200px) 1fr 1fr;border-bottom:1px solid var(--line);">
+        <div style="padding:1.6rem 1.2rem 1.6rem 0;display:flex;align-items:center;gap:0.8rem;">
+          <span style="font-family:var(--f-body);font-size:clamp(0.74rem,1.01vw,0.84rem);font-weight:300;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Metric of Success</span>
+          <span style="color:var(--accent);opacity:0.5;font-size:0.85rem;">→</span>
+        </div>
+        <div style="padding:1.6rem 2rem 1.6rem 1.5rem;font-family:var(--f-display);font-size:clamp(1.15rem,1.76vw,1.42rem);font-weight:300;color:var(--muted);line-height:1.35;">Production Quantity &amp; Throughput</div>
+        <div style="padding:1.6rem 2rem 1.6rem 1.5rem;font-family:var(--f-display);font-size:clamp(1.15rem,1.76vw,1.42rem);font-weight:300;color:var(--text);line-height:1.35;border-left:1px solid var(--line);">Decision Quality &amp; Confidence</div>
+      </div>
+
+      <!-- Row 2 — Core Currency -->
+      <div class="anim d3" style="display:grid;grid-template-columns:clamp(130px,18vw,200px) 1fr 1fr;border-bottom:1px solid var(--line);">
+        <div style="padding:1.6rem 1.2rem 1.6rem 0;display:flex;align-items:center;gap:0.8rem;">
+          <span style="font-family:var(--f-body);font-size:clamp(0.74rem,1.01vw,0.84rem);font-weight:300;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Core Currency</span>
+          <span style="color:var(--accent);opacity:0.5;font-size:0.85rem;">→</span>
+        </div>
+        <div style="padding:1.6rem 2rem 1.6rem 1.5rem;font-family:var(--f-display);font-size:clamp(1.15rem,1.76vw,1.42rem);font-weight:300;color:var(--muted);line-height:1.35;">Speed of Output</div>
+        <div style="padding:1.6rem 2rem 1.6rem 1.5rem;font-family:var(--f-display);font-size:clamp(1.15rem,1.76vw,1.42rem);font-weight:300;color:var(--text);line-height:1.35;border-left:1px solid var(--line);">Trust, Influence, and Reliability</div>
+      </div>
+
+      <!-- Row 3 — Primary Value -->
+      <div class="anim d4" style="display:grid;grid-template-columns:clamp(130px,18vw,200px) 1fr 1fr;">
+        <div style="padding:1.6rem 1.2rem 1.6rem 0;display:flex;align-items:center;gap:0.8rem;">
+          <span style="font-family:var(--f-body);font-size:clamp(0.74rem,1.01vw,0.84rem);font-weight:300;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Primary Value</span>
+          <span style="color:var(--accent);opacity:0.5;font-size:0.85rem;">→</span>
+        </div>
+        <div style="padding:1.6rem 2rem 1.6rem 1.5rem;font-family:var(--f-display);font-size:clamp(1.15rem,1.76vw,1.42rem);font-weight:300;color:var(--muted);line-height:1.35;">Answering the Prompt</div>
+        <div style="padding:1.6rem 2rem 1.6rem 1.5rem;font-family:var(--f-display);font-size:clamp(1.15rem,1.76vw,1.42rem);font-weight:300;color:var(--text);line-height:1.35;border-left:1px solid var(--line);">Designing the Decision Process</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── NEW SLIDE 6 — JUDGMENT VALUE QUOTE ────────────────────── -->
+  <section class="slide" id="slide-fp-6">
+    <div style="position:absolute;inset:0;z-index:0;">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2560&auto=format&fit=crop" alt="" aria-hidden="true"
+           style="width:100%;height:100%;object-fit:cover;opacity:0.07;mix-blend-mode:luminosity;filter:saturate(0.3);" />
+    </div>
+    <div style="position:relative;z-index:1;text-align:center;max-width:880px;">
+      <div class="anim d1" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:0 auto 2.8rem;"></div>
+      <blockquote class="anim d2" style="font-family:var(--f-display);font-size:clamp(1.4rem,3vw,2.8rem);font-weight:300;line-height:1.3;letter-spacing:-0.01em;color:var(--text);font-style:italic;">
+        "Value will no longer be measured by raw output per hour. It accrues to those who can exercise sound judgment under stress and align actors toward a shared purpose"
+      </blockquote>
+      <div class="anim d3" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:2.8rem auto 0;"></div>
+    </div>
+  </section>
+
+  <!-- ── NEW SLIDE 7 — NOEMA ARTICLE ──────────────────────────── -->
+  <section class="slide" id="slide-fp-7" style="padding:3vmin;">
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2rem;">
+      <img src="noema.png" alt="Noema Magazine: How To Future-Proof Your Career In The Age Of AI"
+           class="anim d1"
+           style="max-height:76vh;max-width:82vw;width:auto;height:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,0.6);" />
+      <a class="anim d2" href="https://www.noemamag.com/why-a-liberal-arts-education-will-soon-be-more-valuable-than-ever/"
+         target="_blank" rel="noopener"
+         style="font-family:var(--f-body);font-size:0.6rem;font-weight:300;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:0.5rem;opacity:0.8;transition:opacity 0.3s ease;"
+         onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        <span>↗</span> noemamag.com
+      </a>
+    </div>
+  </section>
+
+
   <!-- ── SLIDE 1 — HERO ──────────────────────────────────────────── -->
-  <section class="slide active" id="slide-1">
+  <section class="slide" id="slide-1">
     <div class="hero-bg">
       <img src="../future-proof-ai/img3.jpeg" alt="" aria-hidden="true" />
     </div>
     <h1 class="hero-title anim d1">The <em>AI</em> Playbook</h1>
-    <p class="hero-subtitle anim d3">A blueprint for upskilling in AI</p>
+    <p class="hero-subtitle anim d3">A blueprint for AI Functional Proficiency</p>
   </section>
 
   <!-- ── SLIDE 2 — LEAD FRAMEWORK ───────────────────────────────── -->
@@ -633,19 +766,13 @@
     </div>
   </section>
 
-  <!-- ── SLIDE 3 — 5-LAYER CAKE ────────────────────────────────── -->
-  <section class="slide" id="slide-cake" style="padding:0;">
-    <img src="5-layer-cake.jpg" alt="5-Layer Cake"
-         class="anim d1"
-         style="position:relative;z-index:1;max-height:82vh;max-width:82vw;width:auto;height:auto;object-fit:contain;display:block;" />
-  </section>
 
   <!-- ── SLIDE 3 — LEARN ─────────────────────────────────────────── -->
   <section class="slide" id="slide-3" style="align-items:flex-start;text-align:left;">
     <div class="leaf-deco" style="right:-6rem;bottom:-3rem;width:380px;height:380px;">
       <img src="../future-proof-ai/img3.jpeg" alt="" aria-hidden="true" />
     </div>
-    <div class="pillar">
+    <div class="pillar" style="zoom:1.3;">
       <div class="pillar-left">
         <div class="pillar-number anim d1">01</div>
         <h2 class="pillar-heading anim d3">Learn</h2>
@@ -678,7 +805,7 @@
 
   <!-- ── SLIDE 4 — LEARNING RESOURCES ────────────────────────────── -->
   <section class="slide" id="slide-4" style="align-items:flex-start;text-align:left;">
-    <div style="width:100%;max-width:1200px;position:relative;z-index:1;">
+    <div style="width:100%;max-width:1200px;position:relative;z-index:1;zoom:1.3;">
       <div class="lr-header">
         <h2 class="lr-title anim d2">Learning Resources</h2>
       </div>
@@ -720,7 +847,7 @@
 
   <!-- ── SLIDE 5 — EXPERIMENT & APPLY ──────────────────────────────── -->
   <section class="slide" id="slide-5" style="align-items:flex-start;text-align:left;">
-    <div style="width:100%;max-width:1200px;position:relative;z-index:1;">
+    <div style="width:100%;max-width:1200px;position:relative;z-index:1;zoom:1.3;">
       <div class="lr-header">
         <h2 class="lr-title anim d1">Experiment &amp; <em style="font-style:italic;color:var(--accent);">Apply</em></h2>
       </div>
@@ -878,7 +1005,7 @@
   <!-- ── SLIDE 11 — STEP 2 ──────────────────────────────────────────── -->
   <section class="slide" id="slide-11">
     <div style="position:absolute;inset:0;z-index:0;">
-      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2560&auto=format&fit=crop"
+      <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2560&auto=format&fit=crop"
            alt="" aria-hidden="true"
            style="width:100%;height:100%;object-fit:cover;opacity:0.10;mix-blend-mode:luminosity;filter:saturate(0.3);" />
     </div>
@@ -905,6 +1032,7 @@
       <div class="anim d3" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:2.5rem auto 0;"></div>
     </div>
   </section>
+
 
   <!-- ── NAVIGATION ───────────────────────────────────────────────── -->
   <nav id="nav">
