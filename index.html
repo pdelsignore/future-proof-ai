@@ -101,6 +101,40 @@
     .d8 { transition-delay: 0.75s; }
     .d9 { transition-delay: 0.85s; }
 
+    /* ─── Agenda slide — bullets appear one after another ───────── */
+    .agenda-slide .agenda-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .agenda-slide .agenda-bullet {
+      font-family: var(--f-display);
+      font-size: clamp(1.32rem, 2.8vw, 2.05rem);
+      font-weight: 300;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      padding-left: 1.5rem;
+      position: relative;
+      transition-duration: 0.7s;
+    }
+    .agenda-slide .agenda-bullet::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      opacity: 0.9;
+    }
+    .agenda-slide .agenda-heading.anim { transition-delay: 0.1s; }
+    .agenda-slide .agenda-list .agenda-bullet.anim:nth-child(1) { transition-delay: 0.32s; }
+    .agenda-slide .agenda-list .agenda-bullet.anim:nth-child(2) { transition-delay: 0.56s; }
+    .agenda-slide .agenda-list .agenda-bullet.anim:nth-child(3) { transition-delay: 0.8s; }
+    .agenda-slide .agenda-list .agenda-bullet.anim:nth-child(4) { transition-delay: 1.04s; }
+    .agenda-slide .agenda-list .agenda-bullet.anim:nth-child(5) { transition-delay: 1.28s; }
+
     /* ─── Navigation ─────────────────────────────────────────────── */
     #nav {
       position: fixed; bottom: 2.2rem; left: 50%;
@@ -612,7 +646,35 @@
     </div>
   </section>
 
-  <!-- ── NEW SLIDE 2 — WSJ QUOTE ────────────────────────────────── -->
+  <!-- ── SLIDE 2 — AGENDA ───────────────────────────────────────── -->
+  <section class="slide agenda-slide" id="slide-fp-agenda" style="align-items:center;padding:6vmin 10vw;">
+    <div style="position:relative;z-index:1;width:100%;max-width:760px;text-align:left;">
+      <p class="agenda-heading anim" style="font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:300;letter-spacing:0.32em;text-transform:uppercase;color:var(--accent);margin-bottom:2.2rem;">Agenda</p>
+      <ul class="agenda-list">
+        <li class="anim agenda-bullet">Predictions on AI and Jobs</li>
+        <li class="anim agenda-bullet">The Judgement Economy</li>
+        <li class="anim agenda-bullet">The AI Playbook</li>
+        <li class="anim agenda-bullet">AI Trends in Motion</li>
+        <li class="anim agenda-bullet">3 Bucket Challenge</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 3 — ARRIVAL (foreground image only) ─────────────── -->
+  <section class="slide" id="slide-fp-arrival" style="padding:3vmin;">
+    <img src="arrival.jpg" alt="Scene from the film Arrival"
+         class="anim d1"
+         style="position:relative;z-index:1;max-height:86vh;max-width:90vw;width:auto;height:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,0.5);" />
+  </section>
+
+  <!-- ── SLIDE 4 — HEPTAPOD LANGUAGE (foreground image only) ───── -->
+  <section class="slide" id="slide-fp-heptapod" style="padding:3vmin;">
+    <img src="heptapod-lang.png" alt="Heptapod circular logographic language diagram"
+         class="anim d1"
+         style="position:relative;z-index:1;max-height:86vh;max-width:90vw;width:auto;height:auto;object-fit:contain;display:block;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,0.5);" />
+  </section>
+
+  <!-- ── NEW SLIDE 5 — WSJ QUOTE ────────────────────────────────── -->
   <section class="slide" id="slide-fp-2">
     <div style="position:absolute;inset:0;z-index:0;">
       <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop" alt="" aria-hidden="true"
@@ -628,7 +690,7 @@
     </div>
   </section>
 
-  <!-- ── NEW SLIDE 3 — SULEYMAN QUOTE ──────────────────────────── -->
+  <!-- ── NEW SLIDE 6 — SULEYMAN QUOTE ──────────────────────────── -->
   <section class="slide" id="slide-fp-3">
     <div style="position:absolute;inset:0;z-index:0;">
       <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2560&auto=format&fit=crop" alt="" aria-hidden="true"
@@ -645,14 +707,14 @@
     </div>
   </section>
 
-  <!-- ── NEW SLIDE 4 — JUDGMENT VALUE CHART ────────────────────── -->
+  <!-- ── NEW SLIDE 7 — JUDGMENT VALUE CHART ────────────────────── -->
   <section class="slide" id="slide-fp-4" style="padding:3vmin;">
     <img src="judgement-value.png" alt="The Automation Paradox: Commoditizing execution amplifies the value of judgment"
          class="anim d1"
          style="position:relative;z-index:1;max-height:84vh;max-width:88vw;width:auto;height:auto;object-fit:contain;display:block;border-radius:4px;" />
   </section>
 
-  <!-- ── NEW SLIDE 5 — JUDGMENT ECONOMY TABLE ──────────────────── -->
+  <!-- ── NEW SLIDE 8 — JUDGMENT ECONOMY TABLE ──────────────────── -->
   <section class="slide" id="slide-fp-5">
     <div style="position:relative;z-index:1;width:100%;max-width:900px;zoom:1.25;">
 
@@ -696,7 +758,7 @@
     </div>
   </section>
 
-  <!-- ── NEW SLIDE 6 — JUDGMENT VALUE QUOTE ────────────────────── -->
+  <!-- ── NEW SLIDE 9 — JUDGMENT VALUE QUOTE ────────────────────── -->
   <section class="slide" id="slide-fp-6">
     <div style="position:absolute;inset:0;z-index:0;">
       <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2560&auto=format&fit=crop" alt="" aria-hidden="true"
@@ -711,7 +773,7 @@
     </div>
   </section>
 
-  <!-- ── NEW SLIDE 7 — NOEMA ARTICLE ──────────────────────────── -->
+  <!-- ── NEW SLIDE 10 — NOEMA ARTICLE ──────────────────────────── -->
   <section class="slide" id="slide-fp-7" style="padding:3vmin;">
     <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2rem;">
       <img src="noema.png" alt="Noema Magazine: How To Future-Proof Your Career In The Age Of AI"
@@ -884,10 +946,10 @@
       <div class="trends-header">
         <h2 class="trends-title anim d1">Trends<br />in Motion</h2>
       </div>
-      <div class="trend-row anim d3"><span class="trend-num">01</span><span class="trend-name">Vibe Coding</span></div>
-      <div class="trend-row anim d3"><span class="trend-num">02</span><span class="trend-name">Agent Skills</span></div>
-      <div class="trend-row anim d4"><span class="trend-num">03</span><span class="trend-name">Agentic Engineering</span></div>
-      <div class="trend-row anim d4"><span class="trend-num">04</span><a class="trend-name" href="https://en.wikipedia.org/wiki/Model_Context_Protocol" target="_blank" rel="noopener">MCP — Model Context Protocol</a></div>
+      <div class="trend-row anim d3"><span class="trend-num">01</span><span class="trend-name">Vibe coding</span></div>
+      <div class="trend-row anim d3"><span class="trend-num">02</span><span class="trend-name">Localized Agents</span></div>
+      <div class="trend-row anim d4"><span class="trend-num">03</span><span class="trend-name">Agent Skills</span></div>
+      <div class="trend-row anim d4"><span class="trend-num">04</span><span class="trend-name">Agentic automation</span></div>
     </div>
   </section>
 
@@ -1028,6 +1090,21 @@
       <div class="anim d1" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:0 auto 2.5rem;"></div>
       <blockquote class="anim d2" style="font-family:var(--f-display);font-size:clamp(1.6rem,3.5vw,3.2rem);font-weight:300;line-height:1.25;letter-spacing:-0.01em;color:var(--text);font-style:italic;">
         "In the Age of AI, intelligence is cheap. Judgement, Taste and Lived Experience is what matters."
+      </blockquote>
+      <div class="anim d3" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:2.5rem auto 0;"></div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 13 — WHAT IS NOW POSSIBLE? ────────────────────────── -->
+  <section class="slide" id="slide-13">
+    <div style="position:absolute;inset:0;z-index:0;">
+      <img src="arrival.jpg" alt="" aria-hidden="true"
+           style="width:100%;height:100%;object-fit:cover;object-position:50% 32%;opacity:0.12;mix-blend-mode:luminosity;filter:saturate(0.35);" />
+    </div>
+    <div style="position:relative;z-index:1;text-align:center;max-width:920px;">
+      <div class="anim d1" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:0 auto 2.5rem;"></div>
+      <blockquote class="anim d2" style="font-family:var(--f-display);font-size:clamp(1.85rem,4.2vw,3.8rem);font-weight:300;line-height:1.15;letter-spacing:-0.02em;color:var(--text);font-style:italic;">
+        What IS Now Possible?
       </blockquote>
       <div class="anim d3" style="width:3rem;height:1px;background:var(--accent);opacity:0.5;margin:2.5rem auto 0;"></div>
     </div>
